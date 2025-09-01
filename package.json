@@ -4,9 +4,9 @@
   "type": "module",
   "scripts": {
     "build": "tsc -b && vite build",
-    "dev": "doppler run -- vite",
+    "dev": "vite",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "generate:api": "doppler run -- tsx .swagger/generate.ts",
+    "generate:api": "tsx -r dotenv/config .swagger/generate.ts",
     "lint": "no-hats package.json && prettier . --check && eslint . --max-warnings 0 && tsc -b",
     "predev": "stay-fresh check --install && yarn generate:api",
     "prepare": "node .husky/install.mjs",

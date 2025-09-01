@@ -1,4 +1,5 @@
 import capitalize from 'lodash/capitalize';
+import 'dotenv/config';
 import fs from 'node:fs';
 import path from 'node:path';
 import { generateApi } from 'swagger-typescript-api';
