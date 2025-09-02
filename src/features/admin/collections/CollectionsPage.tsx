@@ -18,9 +18,9 @@ import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
-  CardDescription,
+  // CardDescription,
   CardHeader,
-  CardTitle,
+  // CardTitle,
   CardFooter,
 } from '@/components/ui/card';
 import { ColorPicker } from '@/components/ui/color-picker';
@@ -33,12 +33,12 @@ import {
   DialogTitle,
   DialogClose,
 } from '@/components/ui/dialog';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+// import {
+//   DropdownMenu,
+//   DropdownMenuContent,
+//   DropdownMenuItem,
+//   DropdownMenuTrigger,
+// } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Skeleton } from '@/components/ui/skeleton';
