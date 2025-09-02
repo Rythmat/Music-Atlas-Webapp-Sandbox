@@ -166,7 +166,11 @@ export const CollectionsPage = () => {
     return collections.map((collection) => (
               <div
                 key={collection.id}
-                className="flex items-center justify-between rounded-lg bg-shade-4/40 p-6 shadow-sm"
+                className="flex items-center justify-between rounded-lg bg-shade-4/40 py-8 px-6 shadow-sm"
+                style={{
+                  borderLeftColor: collection.color || undefined,
+                  borderLeftWidth: collection.color ? '4px' : undefined,
+                }}
               >
                 <div className="mr-2 flex flex-col">
                   <span className="font-medium">{collection.name}</span>
