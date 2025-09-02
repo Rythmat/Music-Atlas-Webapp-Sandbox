@@ -2,6 +2,8 @@ import { Pencil, Trash2, MoreVertical, Eye } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
+import { DeleteIcon } from '@/components/ui/icons/delete-icon';
+import { EditIcon } from '@/components/ui/icons/edit-icon';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -162,86 +164,46 @@ export const CollectionsPage = () => {
     }
 
     return collections.map((collection) => (
-      <Card
-        key={collection.id}
-        className="flex cursor-pointer flex-col justify-between overflow-hidden transition-all hover:shadow-md"
-        style={{
-          borderLeftColor: collection.color || undefined,
-          borderLeftWidth: collection.color ? '4px' : undefined,
-        }}
-      >
-        <CardHeader className="pb-2">
-          <div className="flex items-start justify-between">
-            <div>
-              <CardTitle className="line-clamp-1">{collection.name}</CardTitle>
-              <div className="mt-1 flex items-center gap-2 text-sm text-white/40">
-                <span>{collection.chapters} chapters</span>
-              </div>
-              {collection.description && (
-                <CardDescription className="line-clamp-2">
-                  {collection.description}
-                </CardDescription>
-              )}
-            </div>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  className="-mr-2 -mt-1"
-                  size="sm"
-                  variant="ghost"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <MoreVertical className="size-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                align="end"
-                onClick={(e) => e.stopPropagation()}
+              <div
+                key={collection.id}
+                className="flex items-center justify-between rounded-lg bg-shade-4/40 p-6 shadow-sm"
               >
-                <DropdownMenuItem
-                  className="text-destructive focus:text-destructive"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    confirmDelete(collection.id);
-                  }}
-                >
-                  <Trash2 className="mr-2 size-4" />
-                  Delete
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-        </CardHeader>
-        <CardFooter className="mt-2 flex justify-between">
-          <Button
-            className="min-w-36"
-            size="sm"
-            variant="outline"
-            onClick={() => {
-              navigateToCollection(collection.id);
-            }}
-          >
-            <Pencil className="mr-2 size-4" />
-            Edit
-          </Button>
-          <Button
-            className="min-w-36"
-            size="sm"
-            variant="outline"
-            onClick={() => {
-              navigateToCollection(collection.id);
-            }}
-          >
-            <Eye className="mr-2 size-4" />
-            View
-          </Button>
-        </CardFooter>
-      </Card>
-    ));
+                <div className="mr-2 flex flex-col">
+                  <span className="font-medium">{collection.name}</span>
+                  {collection.description && (
+                    <span className="text-sm text-white/70">
+                      {collection.description}
+                    </span>
+                  )}
+                </div>
+                <div className="flex items-center space-x-2">
+                  <div
+                    className="size-6 rounded-full border"
+                  />
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => navigateToCollection(collection.id)}
+                  >
+                    <EditIcon className="size-4" />
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      confirmDelete(collection.id);
+                    }}
+                  >
+                    <DeleteIcon className="size-4" />
+                  </Button>
+                </div>
+              </div>
+            ));
   };
 
   return (
-    <div className="animate-fade-in-bottom rounded-xl">
+    <div className="space-y-4">
       <div className="mb-8 flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Books</h1>
@@ -257,6 +219,11 @@ export const CollectionsPage = () => {
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {renderCollectionCards()}
       </div>
+
+            <div className="space-y-4">
+              {renderCollectionCards()}
+            </div>
+      
 
       {/* Create Collection Dialog */}
       <Dialog open={createDialogOpen} onOpenChange={setCreateDialogOpen}>
