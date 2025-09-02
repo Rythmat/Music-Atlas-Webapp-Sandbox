@@ -177,9 +177,6 @@ export const CollectionsPage = () => {
                   )}
                 </div>
                 <div className="flex items-center space-x-2">
-                  <div
-                    className="size-6 rounded-full border"
-                  />
                   <Button
                     size="sm"
                     variant="outline"
@@ -214,10 +211,6 @@ export const CollectionsPage = () => {
         <Button onClick={() => setCreateDialogOpen(true)}>
           Create Collection
         </Button>
-      </div>
-
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {renderCollectionCards()}
       </div>
 
             <div className="space-y-4">
