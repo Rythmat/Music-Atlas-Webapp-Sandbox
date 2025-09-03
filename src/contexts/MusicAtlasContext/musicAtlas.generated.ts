@@ -215,7 +215,7 @@ export type GetCollectionsData = {
 
 export interface GetCollectionsParams {
   /** @default false */
-  includeEmpty?: boolean | string;
+  includeEmpty?: boolean;
 }
 
 export interface GetNoteSequencesByIdData {
@@ -272,13 +272,13 @@ export interface GetNoteSequencesParams {
    * @min 1
    * @default 1
    */
-  page?: string | number;
+  page?: number;
   /**
    * @min 1
    * @max 100
    * @default 20
    */
-  pageSize?: string | number;
+  pageSize?: number;
 }
 
 export type GetNotesData = {
@@ -374,13 +374,13 @@ export interface GetPhraseMapsParams {
    * @min 1
    * @default 1
    */
-  page?: string | number;
+  page?: number;
   /**
    * @min 1
    * @max 100
    * @default 20
    */
-  pageSize?: string | number;
+  pageSize?: number;
 }
 
 export interface GetPlayAlongByIdData {
@@ -420,13 +420,13 @@ export interface GetPlayAlongParams {
    * @min 1
    * @default 1
    */
-  page?: string | number;
+  page?: number;
   /**
    * @min 1
    * @max 100
    * @default 20
    */
-  pageSize?: string | number;
+  pageSize?: number;
 }
 
 export type GetPracticeEventsData = {
@@ -1006,6 +1006,17 @@ export interface PostChaptersPayload {
   noteKey?: ('c' | 'g' | 'd' | 'a' | 'e' | 'b' | 'f_sharp' | 'd_flat' | 'a_flat' | 'e_flat' | 'b_flat' | 'f') | null;
 }
 
+export interface PostChaptersReorderData {
+  success: boolean;
+}
+
+export interface PostChaptersReorderPayload {
+  chapterOrders: {
+    id: string;
+    order: number;
+  }[];
+}
+
 export interface PostClassroomsData {
   code: string;
   createdAt: Date;
@@ -1561,6 +1572,22 @@ export namespace Chapters {
     export type RequestHeaders = {};
     export type ResponseBody = PostChaptersData;
   }
+
+  /**
+   * No description
+   * @tags Chapters
+   * @name PostChaptersReorder
+   * @summary Globally reorder chapters (applies to all collections)
+   * @request POST:/chapters/reorder
+   * @response `200` `PostChaptersReorderData`
+   */
+  export namespace PostChaptersReorder {
+    export type RequestParams = {};
+    export type RequestQuery = {};
+    export type RequestBody = PostChaptersReorderPayload;
+    export type RequestHeaders = {};
+    export type ResponseBody = PostChaptersReorderData;
+  }
 }
 
 export namespace Classrooms {
@@ -1728,7 +1755,7 @@ export namespace Collections {
     export type RequestParams = {};
     export type RequestQuery = {
       /** @default false */
-      includeEmpty?: boolean | string;
+      includeEmpty?: boolean;
     };
     export type RequestBody = never;
     export type RequestHeaders = {};
@@ -1973,13 +2000,13 @@ export namespace NoteSequences {
        * @min 1
        * @default 1
        */
-      page?: string | number;
+      page?: number;
       /**
        * @min 1
        * @max 100
        * @default 20
        */
-      pageSize?: string | number;
+      pageSize?: number;
     };
     export type RequestBody = never;
     export type RequestHeaders = {};
@@ -2186,13 +2213,13 @@ export namespace PhraseMaps {
        * @min 1
        * @default 1
        */
-      page?: string | number;
+      page?: number;
       /**
        * @min 1
        * @max 100
        * @default 20
        */
-      pageSize?: string | number;
+      pageSize?: number;
     };
     export type RequestBody = never;
     export type RequestHeaders = {};
@@ -2335,13 +2362,13 @@ export namespace PlayAlong {
        * @min 1
        * @default 1
        */
-      page?: string | number;
+      page?: number;
       /**
        * @min 1
        * @max 100
        * @default 20
        */
-      pageSize?: string | number;
+      pageSize?: number;
     };
     export type RequestBody = never;
     export type RequestHeaders = {};
@@ -2990,6 +3017,25 @@ export class Api<SecurityDataType extends unknown> {
     postChapters: (data: PostChaptersPayload, params: RequestParams = {}) =>
       this.http.request<PostChaptersData, any>({
         path: `/chapters`,
+        method: 'POST',
+        body: data,
+        type: ContentType.Json,
+        format: 'json',
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags Chapters
+     * @name PostChaptersReorder
+     * @summary Globally reorder chapters (applies to all collections)
+     * @request POST:/chapters/reorder
+     * @response `200` `PostChaptersReorderData`
+     */
+    postChaptersReorder: (data: PostChaptersReorderPayload, params: RequestParams = {}) =>
+      this.http.request<PostChaptersReorderData, any>({
+        path: `/chapters/reorder`,
         method: 'POST',
         body: data,
         type: ContentType.Json,
