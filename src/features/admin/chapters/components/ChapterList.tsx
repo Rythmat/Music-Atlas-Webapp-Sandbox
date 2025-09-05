@@ -68,7 +68,7 @@ export const ChapterList = ({ chapters, isLoading }: ChapterListProps) => {
               <span className="font-medium">{chapter.name}</span>
               {chapter.description && (
                 <span className="text-sm text-white/70">
-                  {chapter.description}
+                  {chapter.description + chapter.order}
                 </span>
               )}
             </div>
